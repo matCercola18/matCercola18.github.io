@@ -5,5 +5,5 @@ Personal academic page of Matteo Cercola, served via GitHub Pages at
 
 Plain static HTML/CSS, no build step — edit `index.html` and push.
 
-To add a profile photo, drop a square image at `assets/profile.jpg`
+The profile photo lives at `assets/profile.png`
 (the page falls back to an initials avatar if it's missing).
