@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matteo Cercola</title>
+  <meta name="description" content="Matteo Cercola — PhD candidate at Politecnico di Milano and Visiting Researcher at Stanford ASL. Foundation models for autonomous driving and robotics, RL for LLMs, diffusion-based generation.">
+  <meta property="og:title" content="Matteo Cercola">
+  <meta property="og:description" content="PhD candidate at Politecnico di Milano · Visiting Researcher at Stanford ASL">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fdfdfb;
+      --text: #1c1c1a;
+      --muted: #6b6b66;
+      --faint: #a3a39c;
+      --accent: #8c1515;
+      --link: #1a4f8b;
+      --rule: #e8e8e2;
+      --card: #f5f5f0;
+      --serif: "Newsreader", Georgia, serif;
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141413;
+        --text: #e8e8e4;
+        --muted: #a3a39c;
+        --faint: #6b6b66;
+        --accent: #e07a7a;
+        --link: #7fb0e8;
+        --rule: #2a2a28;
+        --card: #1e1e1c;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 5rem;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Header */
+    header { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    .avatar {
+      width: 132px; height: 132px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--rule);
+    }
+    .avatar-fallback {
+      width: 132px; height: 132px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      color: var(--faint);
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 2.6rem;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    .tagline { color: var(--muted); margin-top: 0.5rem; max-width: 34rem; }
+    .tagline em { font-style: normal; color: var(--text); }
+    nav.links { margin-top: 0.9rem; display: flex; gap: 1.1rem; flex-wrap: wrap; font-size: 0.92rem; }
+    nav.links a { color: var(--muted); }
+    nav.links a:hover { color: var(--link); }
+
+    /* Sections */
+    section { margin-top: 3.2rem; }
+    h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.45rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.2rem;
+    }
+    .about p + p { margin-top: 0.8rem; }
+    .about a { border-bottom: none; }
+
+    /* News */
+    .news { list-style: none; }
+    .news li {
+      display: grid;
+      grid-template-columns: 6.2rem 1fr;
+      gap: 1rem;
+      padding: 0.45rem 0;
+    }
+    .news .date {
+      color: var(--faint);
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+      padding-top: 0.15rem;
+      white-space: nowrap;
+    }
+
+    /* Publications */
+    .pub {
+      padding: 1.05rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pub:last-child { border-bottom: none; }
+    .pub .title {
+      font-family: var(--serif);
+      font-size: 1.13rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .pub .title a { color: var(--text); }
+    .pub .title a:hover { color: var(--link); text-decoration: none; }
+    .pub .authors { color: var(--muted); font-size: 0.92rem; margin-top: 0.2rem; }
+    .pub .authors b { font-weight: 600; color: var(--text); }
+    .pub .venue { font-size: 0.92rem; margin-top: 0.15rem; color: var(--muted); }
+    .pub .venue i { color: var(--accent); font-style: italic; }
+    .pub .tags { margin-top: 0.45rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pub .tags a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.13rem 0.6rem;
+      border: 1px solid var(--rule);
+      border-radius: 99px;
+      color: var(--muted);
+    }
+    .pub .tags a:hover { border-color: var(--link); color: var(--link); text-decoration: none; }
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Research */
+    .research-item { margin-bottom: 1.1rem; }
+    .research-item h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.08rem;
+    }
+    .research-item p { color: var(--muted); font-size: 0.95rem; margin-top: 0.15rem; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule);
+      color: var(--faint);
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 560px) {
+      .wrap { padding-top: 3rem; }
+      h1 { font-size: 2.1rem; }
+      .news li { grid-template-columns: 1fr; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="avatar" src="assets/profile.jpg" alt="Matteo Cercola"
+         onerror="this.outerHTML='<div class=&quot;avatar-fallback&quot;>MC</div>'">
+    <div>
+      <h1>Matteo Cercola</h1>
+      <p class="tagline">
+        PhD candidate at <em>Politecnico di Milano</em> · Visiting Researcher at
+        <em>Stanford&nbsp;ASL</em>
+      </p>
+      <nav class="links">
+        <a href="mailto:matteo.cercola@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/matteo-cercola" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/matCercola18" target="_blank" rel="noopener">GitHub</a>
+        <a href="#publications">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>
+      I am a PhD candidate in Information Technology at Politecnico di Milano and currently a
+      Visiting Student Researcher at Stanford University's
+      <a href="https://web.stanford.edu/~pavone/" target="_blank" rel="noopener">Autonomous Systems Lab</a>
+      (Prof. Marco Pavone), where I work on foundation models for autonomous driving.
+    </p>
+    <p>
+      My research sits at the intersection of machine learning and control: <b>foundation models
+      for autonomous driving and robotics</b>, <b>reinforcement learning from human feedback for
+      LLMs</b>, and <b>diffusion-based generation</b> for control design. I am broadly interested
+      in making learning-based systems that reason well, respect human preferences, and come with
+      guarantees.
+    </p>
+  </section>
+
+  <section>
+    <h2>News</h2>
+    <ul class="news">
+      <li><span class="date">Jun 2026</span><span>Our paper on <a href="https://arxiv.org/abs/2511.04286">efficient RLHF via Bayesian preference inference</a> is out in the <i>IFAC Journal of Systems and Control</i>.</span></li>
+      <li><span class="date">2026</span><span><a href="https://arxiv.org/abs/2512.15725">Diffusion-based controller synthesis via Youla parameterization</a> accepted at <i>IFAC 2026</i>.</span></li>
+      <li><span class="date">Jan 2026</span><span>Started as a Visiting Student Researcher at the Autonomous Systems Lab, Stanford University.</span></li>
+      <li><span class="date">Jun 2025</span><span>Presented our work on <a href="https://proceedings.mlr.press/v283/cercola25a.html">LLM-based traffic incident management</a> at L4DC 2025, Ann Arbor.</span></li>
+    </ul>
+  </section>
+
+  <section id="publications">
+    <h2>Publications</h2>
+
+    <div class="pub">
+      <span class="badge">New · Featured</span>
+      <div class="title"><a href="https://arxiv.org/abs/2511.04286">Efficient Reinforcement Learning from Human Feedback via Bayesian Preference Inference</a></div>
+      <div class="authors"><b>Matteo Cercola</b>, Valeria Capretti, Simone Formentin</div>
+      <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
+      <div class="tags">
+        <a href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://www.sciencedirect.com/science/article/pii/S2468601826000386" target="_blank" rel="noopener">Journal</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="title"><a href="https://arxiv.org/abs/2511.04751">Regularized GLISp for Sensor-Guided Human-in-the-Loop Optimization</a></div>
+      <div class="authors"><b>Matteo Cercola</b>, Michele Lomuscio, Dario Piga, Simone Formentin</div>
+      <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
+      <div class="tags">
+        <a href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">arXiv</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="title"><a href="https://arxiv.org/abs/2512.15725">Generative Design of Stabilizing Controllers with Diffusion Models: The Youla Approach</a></div>
+      <div class="authors"><b>Matteo Cercola</b>, Donatello Materassi, Simone Formentin</div>
+      <div class="venue"><i>IFAC World Congress</i>, 2026</div>
+      <div class="tags">
+        <a href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">arXiv</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="title"><a href="https://proceedings.mlr.press/v283/cercola25a.html">Automating the Loop in Traffic Incident Management on Highway</a></div>
+      <div class="authors"><b>Matteo Cercola</b>, Nicola Gatti, Pedro Huertas Leyva, Benedetto Carambia, Simone Formentin</div>
+      <div class="venue"><i>7th Learning for Dynamics &amp; Control Conference (L4DC)</i>, Ann Arbor, 2025</div>
+      <div class="tags">
+        <a href="https://arxiv.org/abs/2503.12085" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">PMLR</a>
+      </div>
+    </div>
+
+    <div class="pub">
+      <div class="title">Method for Estimating Expert Test-Driver Subjective Handling Assessment</div>
+      <div class="authors"><b>Matteo Cercola</b> et al.</div>
+      <div class="venue"><i>Patent</i> — Maserati S.p.A. and Politecnico di Milano</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Research Highlights</h2>
+    <div class="research-item">
+      <h3>Foundation models for autonomous driving — Stanford ASL</h3>
+      <p>Enhancing the reasoning of foundation models for decision-making and control in dynamic
+      environments; fine-tuning 4B-parameter vision-language-action models on a 32× H100 cluster
+      with PyTorch distributed training.</p>
+    </div>
+    <div class="research-item">
+      <h3>Agentic LLM decision support — MOVYON / Autostrade per l'Italia</h3>
+      <p>An agentic decision-support system (LangChain, RAG) with optimization-backed guarantees,
+      deployed for highway radio operators to accelerate incident response.</p>
+    </div>
+    <div class="research-item">
+      <h3>LiDAR segmentation — Indy Autonomous Challenge 2023</h3>
+      <p>Real-time point-cloud segmentation (PyTorch + ROS2) deployed on a full-scale autonomous
+      race vehicle, contributing to the team victory at the Monza Circuit.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Matteo Cercola</span>
+    <span>Milano · Stanford</span>
+  </footer>
+
+</div>
+</body>
+</html>
