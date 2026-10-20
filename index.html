@@ -84,7 +84,7 @@
 
     /* Layout: sticky sidebar + content */
     .wrap {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 4.5rem 2rem 4rem;
       display: grid;
@@ -204,24 +204,26 @@
     /* Publications */
     .pub {
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
+      grid-template-columns: 264px minmax(0, 1fr);
       gap: 1.4rem;
       padding: 1.2rem 0;
       border-bottom: 1px solid var(--rule);
     }
     .pub:last-child { border-bottom: none; }
     .thumb {
+      position: relative;
+      display: block;
       aspect-ratio: 16 / 10;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid var(--rule);
-      background: #000;
+      background: var(--card);
       transition: border-color 0.2s, transform 0.2s;
     }
     .pub:hover .thumb { border-color: var(--faint); transform: translateY(-1px); }
-    .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .thumb.fig { background: #fff; }
-    .thumb.fig img { object-fit: contain; padding: 6px; }
+    .thumb img, .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .thumb video { opacity: 0; transition: opacity 0.25s; }
+    .thumb video.on { opacity: 1; }
     .pub .meta { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.2rem; }
     .topic {
       font-size: 0.72rem;
@@ -391,8 +393,8 @@
       <h2>Publications</h2>
 
       <div class="pub" id="pub-faithfulness">
-        <a class="thumb fig" href="https://mjf-su.github.io/pinocchio/" target="_blank" rel="noopener">
-          <img src="assets/pubs/faithfulness.jpg" alt="Functional versus faithful reasoning in a driving scene" loading="lazy">
+        <a class="thumb" href="https://mjf-su.github.io/pinocchio/" target="_blank" rel="noopener">
+          <img src="assets/pubs/faithfulness.jpg" alt="The model says &quot;slow down and stop&quot; while its trajectory swerves around a fallen tree" loading="lazy">
         </a>
         <div>
           <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
@@ -409,7 +411,8 @@
 
       <div class="pub" id="pub-gpl">
         <a class="thumb" href="https://matcercola18.github.io/reasoning-as-a-distribution/" target="_blank" rel="noopener">
-          <video src="assets/pubs/gpl.mp4" poster="assets/pubs/gpl.jpg" muted loop playsinline preload="none" aria-label="Robot arm following a sampled plan"></video>
+          <img src="assets/pubs/gpl.jpg" alt="Mode averaging lands between two valid grasps; a distribution over plans keeps both" loading="lazy">
+          <video src="assets/pubs/gpl.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
         </a>
         <div>
           <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
@@ -424,7 +427,8 @@
 
       <div class="pub" id="pub-pbdb">
         <a class="thumb" href="https://matcercola18.github.io/pbdb/" target="_blank" rel="noopener">
-          <video src="assets/pubs/pbdb.mp4" poster="assets/pubs/pbdb.jpg" muted loop playsinline preload="none" aria-label="Driving VLA trajectory approaching an obstacle"></video>
+          <img src="assets/pubs/pbdb.jpg" alt="The model reasons &quot;brake for the cyclist ahead&quot; but its plan collides with the cyclist" loading="lazy">
+          <video src="assets/pubs/pbdb.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
         </a>
         <div>
           <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
@@ -438,8 +442,8 @@
       </div>
 
       <div class="pub" id="pub-rlhf">
-        <a class="thumb fig" href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">
-          <img src="assets/pubs/rlhf.jpg" alt="Bayesian RLHF loop with acquisition function and Laplace-approximated reward model" loading="lazy">
+        <a class="thumb" href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">
+          <img src="assets/pubs/rlhf.jpg" alt="Loop between an acquisition function, human preference queries and a Laplace posterior over the reward model" loading="lazy">
         </a>
         <div>
           <div class="meta"><span class="topic">Human feedback</span></div>
@@ -454,8 +458,8 @@
       </div>
 
       <div class="pub" id="pub-glisp">
-        <a class="thumb fig" href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">
-          <img src="assets/pubs/glisp.jpg" alt="Regularized GLISp loop with driver preferences and sensor outputs" loading="lazy">
+        <a class="thumb" href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">
+          <img src="assets/pubs/glisp.jpg" alt="A driver compares setups A and B while vehicle sensors measure each setup" loading="lazy">
         </a>
         <div>
           <div class="meta"><span class="topic">Human feedback</span></div>
@@ -470,8 +474,8 @@
       </div>
 
       <div class="pub" id="pub-youla">
-        <a class="thumb fig" href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">
-          <img src="assets/pubs/youla.jpg" alt="Distributions of sensitivity peak and settling time of generated controllers" loading="lazy">
+        <a class="thumb" href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">
+          <img src="assets/pubs/youla.jpg" alt="Step responses of diffusion-generated controllers next to the reference controller" loading="lazy">
         </a>
         <div>
           <div class="meta"><span class="topic">Generative control</span></div>
@@ -485,8 +489,8 @@
       </div>
 
       <div class="pub" id="pub-l4dc">
-        <a class="thumb fig" href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">
-          <img src="assets/pubs/l4dc.jpg" alt="LLM and optimization pipeline supporting highway operators" loading="lazy">
+        <a class="thumb" href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">
+          <img src="assets/pubs/l4dc.jpg" alt="Highway events flow through an LLM, an optimizer and a second LLM back to the operator" loading="lazy">
         </a>
         <div>
           <div class="meta"><span class="topic">LLM agents</span></div>
@@ -549,11 +553,11 @@
     syncLabel();
   });
 
-  // Paper previews play on hover
+  // Hovering a paper fades its hero image into the clip
   document.querySelectorAll(".pub video").forEach((v) => {
     const row = v.closest(".pub");
-    row.addEventListener("mouseenter", () => v.play().catch(() => {}));
-    row.addEventListener("mouseleave", () => v.pause());
+    row.addEventListener("mouseenter", () => v.play().then(() => v.classList.add("on")).catch(() => {}));
+    row.addEventListener("mouseleave", () => { v.classList.remove("on"); v.pause(); });
   });
 </script>
 </body>
