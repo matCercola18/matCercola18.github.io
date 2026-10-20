@@ -17,7 +17,7 @@
     "url": "https://matcercola18.github.io/",
     "image": "https://matcercola18.github.io/assets/profile.png",
     "jobTitle": "PhD Candidate in Information Technology",
-    "email": "mailto:matteo.cercola@polimi.it",
+    "email": "mailto:matteo.cercola@gmail.com",
     "affiliation": [
       { "@type": "Organization", "name": "Politecnico di Milano" },
       { "@type": "Organization", "name": "Stanford University, Autonomous Systems Lab" }
@@ -66,7 +66,7 @@ h1{text-wrap:balance;font-family:var(--serif);font-weight:400;font-size:clamp(3.
 .links{margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:1.4rem;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
 .links a{border-bottom:1px solid var(--rule);padding-bottom:3px}
 .links a:hover{border-color:var(--accent);color:var(--accent)}
-.links a.mail{text-transform:none;letter-spacing:.03em}
+.links a.mail.on{text-transform:none;letter-spacing:.03em}
 .copied{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--faint)}
 .portrait{width:250px;height:250px;border-radius:50%;object-fit:cover;border:1px solid var(--rule);display:block;justify-self:end}
 section{padding:3.8rem 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:240px minmax(0,1fr);gap:3rem}
@@ -146,7 +146,7 @@ footer{padding:2rem 0 5rem;color:var(--faint);font-size:.85rem;display:flex;just
       <h1>Matteo<br>Cercola</h1>
       <p class="tag">Reasoning and control in <em>vision–language–action</em> models.</p>
       <div class="roles"><span>PhD candidate, <b>Politecnico di Milano</b></span><span>Visiting researcher, <b>Stanford ASL</b></span></div>
-      <div class="links"><a href="mailto:matteo.cercola@polimi.it" class="mail">matteo.cercola@polimi.it</a><span class="copied" aria-live="polite"></span><a href="https://scholar.google.com/citations?user=CJmNduIAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://github.com/matCercola18" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/matteo-cercola" target="_blank" rel="noopener">LinkedIn</a></div>
+      <div class="links"><a href="mailto:matteo.cercola@gmail.com" class="mail">Email</a><span class="copied" aria-live="polite"></span><a href="https://scholar.google.com/citations?user=CJmNduIAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://github.com/matCercola18" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/matteo-cercola" target="_blank" rel="noopener">LinkedIn</a></div>
     </div>
     <img class="portrait" src="assets/profile.png" alt="Matteo Cercola">
   </div>
@@ -309,9 +309,10 @@ footer{padding:2rem 0 5rem;color:var(--faint);font-size:.85rem;display:flex;just
   var links=Array.prototype.slice.call(document.querySelectorAll('.bar nav a')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
   function spy(){var y=scrollY+innerHeight*.35,cur=null;secs.forEach(function(s){if(s.offsetTop<=y)cur=s});links.forEach(function(a){a.classList.toggle('on',!!cur&&a.getAttribute('href')==='#'+cur.id)});}
   addEventListener('scroll',spy,{passive:true});spy();
-  // mailto: is a no-op on machines without a mail client, so also copy the address
+  // mailto: is a no-op on machines without a mail client, so the click also reveals and copies the address
   var mail=document.querySelector('.mail'),copied=document.querySelector('.copied');
   mail.addEventListener('click',function(){var addr=mail.getAttribute('href').slice(7);
+    mail.textContent=addr;mail.classList.add('on');
     if(navigator.clipboard){navigator.clipboard.writeText(addr).then(function(){copied.textContent='copied';setTimeout(function(){copied.textContent=''},2000)}).catch(function(){})}});
 </script>
 </body>
