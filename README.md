@@ -7,3 +7,5 @@ Plain static HTML/CSS, no build step — edit `index.html` and push.
 
 The profile photo lives at `assets/profile.png`
 (the page falls back to an initials avatar if it's missing).
+
+Paper thumbnails and hover clips live in `assets/pubs/` (keep clips ~480px wide, muted, <200KB).

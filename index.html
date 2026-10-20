@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Matteo Cercola</title>
-  <meta name="description" content="Matteo Cercola — PhD candidate at Politecnico di Milano and Visiting Researcher at Stanford ASL. Foundation models for autonomous driving and robotics, RL for LLMs, diffusion-based generation.">
+  <meta name="description" content="Matteo Cercola — PhD candidate at Politecnico di Milano and Visiting Researcher at Stanford ASL. Reasoning in vision-language-action models for autonomous driving and robotics, learning from human feedback, generative models for control.">
   <meta property="og:title" content="Matteo Cercola">
   <meta property="og:description" content="PhD candidate at Politecnico di Milano · Visiting Researcher at Stanford ASL">
   <meta property="og:type" content="website">
@@ -26,13 +26,16 @@
       { "@type": "Organization", "name": "Politecnico di Milano" },
       { "@type": "Organization", "name": "Università degli Studi Roma Tre" }
     ],
-    "knowsAbout": ["Foundation models", "Autonomous driving", "Robotics", "Reinforcement learning from human feedback", "Diffusion models", "Control theory"],
+    "knowsAbout": ["Vision-language-action models", "Embodied reasoning", "Autonomous driving", "Robotics", "Reinforcement learning from human feedback", "Diffusion models", "Control theory"],
     "sameAs": [
       "https://scholar.google.com/citations?user=CJmNduIAAAAJ",
       "https://www.linkedin.com/in/matteo-cercola",
       "https://github.com/matCercola18"
     ]
   }
+  </script>
+  <script>
+    try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark"; } catch (e) {}
   </script>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png?v=2">
@@ -54,6 +57,17 @@
       --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color-scheme: dark;
     }
+    :root[data-theme="light"] {
+      --bg: #faf9f5;
+      --text: #1f1e1c;
+      --muted: #5c5b56;
+      --faint: #8a8983;
+      --accent: #b54848;
+      --link: #2f63a8;
+      --rule: #e4e2da;
+      --card: #f1efe8;
+      color-scheme: light;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -63,68 +77,109 @@
       line-height: 1.65;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
-    }
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 4.5rem 1.5rem 5rem;
+      transition: background-color 0.2s, color 0.2s;
     }
     a { color: var(--link); text-decoration: none; }
     a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-    /* Header */
-    header { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    /* Layout: sticky sidebar + content */
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 4.5rem;
+    }
+    aside {
+      position: sticky;
+      top: 4.5rem;
+      align-self: start;
+    }
+
+    /* Sidebar */
     .avatar {
-      width: 132px; height: 132px;
+      width: 150px; height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      flex-shrink: 0;
       border: 1px solid var(--rule);
+      display: block;
     }
     .avatar-fallback {
-      width: 132px; height: 132px;
+      width: 150px; height: 150px;
       border-radius: 50%;
-      flex-shrink: 0;
       background: var(--card);
       border: 1px solid var(--rule);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif);
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       color: var(--faint);
     }
     h1 {
       font-family: var(--serif);
       font-weight: 500;
-      font-size: 2.6rem;
+      font-size: 2.1rem;
       letter-spacing: -0.01em;
       line-height: 1.15;
+      margin-top: 1.3rem;
     }
-    .tagline { color: var(--muted); margin-top: 0.5rem; max-width: 34rem; }
-    .tagline em { font-style: normal; color: var(--text); }
-    nav.links { margin-top: 0.9rem; display: flex; gap: 1.1rem; flex-wrap: wrap; font-size: 0.92rem; }
+    .role { color: var(--muted); font-size: 0.93rem; margin-top: 0.6rem; line-height: 1.5; }
+    .role em { font-style: normal; color: var(--text); }
+    .focus {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.02rem;
+      color: var(--muted);
+      margin-top: 0.9rem;
+      line-height: 1.45;
+    }
+    nav.links {
+      margin-top: 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.92rem;
+    }
     nav.links a { color: var(--muted); }
     nav.links a:hover { color: var(--link); }
+    .theme-toggle {
+      margin-top: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font: inherit;
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 99px;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+    }
+    .theme-toggle:hover { border-color: var(--link); color: var(--link); }
+    .theme-toggle svg { width: 15px; height: 15px; }
+    :root[data-theme="dark"] .icon-moon,
+    :root[data-theme="light"] .icon-sun { display: none; }
 
     /* Sections */
-    section { margin-top: 3.2rem; }
+    section + section { margin-top: 3.4rem; }
     h2 {
       font-family: var(--serif);
       font-weight: 500;
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--rule);
       margin-bottom: 1.2rem;
     }
     .about p + p { margin-top: 0.8rem; }
-    .about a { border-bottom: none; }
 
     /* News */
     .news { list-style: none; }
     .news li {
       display: grid;
-      grid-template-columns: 6.2rem 1fr;
+      grid-template-columns: 5.8rem 1fr;
       gap: 1rem;
-      padding: 0.45rem 0;
+      padding: 0.4rem 0;
     }
     .news .date {
       color: var(--faint);
@@ -134,12 +189,54 @@
       white-space: nowrap;
     }
 
+    /* Research themes */
+    .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .theme {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .theme h3 { font-family: var(--serif); font-weight: 500; font-size: 1.08rem; line-height: 1.3; }
+    .theme p { color: var(--muted); font-size: 0.89rem; margin-top: 0.4rem; line-height: 1.55; }
+    .theme .refs { font-size: 0.82rem; margin-top: 0.6rem; }
+
     /* Publications */
     .pub {
-      padding: 1.05rem 0;
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 1.4rem;
+      padding: 1.2rem 0;
       border-bottom: 1px solid var(--rule);
     }
     .pub:last-child { border-bottom: none; }
+    .thumb {
+      aspect-ratio: 16 / 10;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      background: #000;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pub:hover .thumb { border-color: var(--faint); transform: translateY(-1px); }
+    .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb.fig { background: #fff; }
+    .thumb.fig img { object-fit: contain; padding: 6px; }
+    .pub .meta { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.2rem; }
+    .topic {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
     .pub .title {
       font-family: var(--serif);
       font-size: 1.13rem;
@@ -148,11 +245,12 @@
     }
     .pub .title a { color: var(--text); }
     .pub .title a:hover { color: var(--link); text-decoration: none; }
-    .pub .authors { color: var(--muted); font-size: 0.92rem; margin-top: 0.2rem; }
+    .pub .authors { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
     .pub .authors b { font-weight: 600; color: var(--text); }
-    .pub .venue { font-size: 0.92rem; margin-top: 0.15rem; color: var(--muted); }
+    .pub .note { color: var(--faint); font-size: 0.8rem; }
+    .pub .venue { font-size: 0.9rem; margin-top: 0.15rem; color: var(--muted); }
     .pub .venue i { color: var(--accent); font-style: italic; }
-    .pub .tags { margin-top: 0.45rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pub .tags { margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
     .pub .tags a {
       font-size: 0.78rem;
       font-weight: 500;
@@ -162,24 +260,11 @@
       color: var(--muted);
     }
     .pub .tags a:hover { border-color: var(--link); color: var(--link); text-decoration: none; }
-    .badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-    }
 
-    /* Research */
-    .research-item { margin-bottom: 1.1rem; }
-    .research-item h3 {
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: 1.08rem;
-    }
-    .research-item p { color: var(--muted); font-size: 0.95rem; margin-top: 0.15rem; }
+    /* Projects */
+    .project + .project { margin-top: 1.1rem; }
+    .project h3 { font-family: var(--serif); font-weight: 500; font-size: 1.08rem; }
+    .project p { color: var(--muted); font-size: 0.95rem; margin-top: 0.15rem; }
 
     footer {
       margin-top: 4rem;
@@ -193,9 +278,24 @@
       gap: 0.5rem;
     }
 
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; gap: 2.8rem; padding: 3rem 1.25rem 3rem; }
+      aside {
+        position: static;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1.5rem;
+        align-items: center;
+      }
+      aside .avatar, aside .avatar-fallback { width: 112px; height: 112px; }
+      h1 { margin-top: 0; font-size: 2rem; }
+      .sidebar-rest { grid-column: 1 / -1; }
+      nav.links { flex-direction: row; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
+      .themes { grid-template-columns: 1fr; }
+    }
     @media (max-width: 560px) {
-      .wrap { padding-top: 3rem; }
-      h1 { font-size: 2.1rem; }
+      .pub { grid-template-columns: 1fr; gap: 0.8rem; }
+      .pub > :empty { display: none; }
       .news li { grid-template-columns: 1fr; gap: 0; }
     }
   </style>
@@ -203,129 +303,258 @@
 <body>
 <div class="wrap">
 
-  <header>
+  <aside>
     <img class="avatar" src="assets/profile.png" alt="Matteo Cercola"
          onerror="this.outerHTML='<div class=&quot;avatar-fallback&quot;>MC</div>'">
     <div>
       <h1>Matteo Cercola</h1>
-      <p class="tagline">
-        PhD candidate at <em>Politecnico di Milano</em> · Visiting Researcher at
-        <em>Stanford&nbsp;ASL</em>
+      <p class="role">
+        PhD candidate, <em>Politecnico di Milano</em><br>
+        Visiting researcher, <em>Stanford&nbsp;ASL</em>
       </p>
+    </div>
+    <div class="sidebar-rest">
+      <p class="focus">Reasoning and control in vision–language–action models.</p>
       <nav class="links">
         <a href="mailto:matteo.cercola@polimi.it">Email</a>
         <a href="https://scholar.google.com/citations?user=CJmNduIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
-        <a href="https://www.linkedin.com/in/matteo-cercola" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/matCercola18" target="_blank" rel="noopener">GitHub</a>
-        <a href="#publications">Publications</a>
+        <a href="https://www.linkedin.com/in/matteo-cercola" target="_blank" rel="noopener">LinkedIn</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <span>Light</span>
+      </button>
     </div>
-  </header>
+  </aside>
 
-  <section class="about">
-    <h2>About</h2>
-    <p>
-      I am a PhD candidate in Information Technology at Politecnico di Milano
-      (<a href="https://formentin.faculty.polimi.it/research-group/" target="_blank" rel="noopener">Prof. Simone Formentin</a>)
-      and currently a Visiting Student Researcher at Stanford University's
-      <a href="https://stanfordasl.github.io/" target="_blank" rel="noopener">Autonomous Systems Lab</a>
-      (Prof. Marco Pavone), where I work on foundation models for autonomous driving.
-    </p>
-    <p>
-      My research sits at the intersection of machine learning and control: <b>foundation models
-      for autonomous driving and robotics</b>, <b>reinforcement learning from human feedback for
-      LLMs</b>, and <b>diffusion-based generation</b> for control design. I am broadly interested
-      in making learning-based systems that reason well, respect human preferences, and come with
-      guarantees.
-    </p>
-  </section>
+  <main>
+    <section class="about">
+      <h2>About</h2>
+      <p>
+        I am a PhD candidate in Information Technology at Politecnico di Milano, advised by
+        <a href="https://formentin.faculty.polimi.it/research-group/" target="_blank" rel="noopener">Prof. Simone Formentin</a>,
+        and currently a Visiting Student Researcher at Stanford University's
+        <a href="https://stanfordasl.github.io/" target="_blank" rel="noopener">Autonomous Systems Lab</a>
+        with Prof. Marco Pavone.
+      </p>
+      <p>
+        I study how robot foundation models reason, and whether that reasoning actually controls what
+        they do. My recent work looks at <b>vision–language–action (VLA) models</b> for driving and
+        manipulation: whether their chain-of-thought is faithful to the policy, how to represent
+        reasoning as a distribution over plans that can be sampled and steered, and why a model can
+        perceive a hazard yet fail to act on it. I come to this from <b>control</b> and
+        <b>learning from human feedback</b>, and I care about learning-based systems that are
+        interpretable, steerable, and safe.
+      </p>
+    </section>
 
-  <section>
-    <h2>News</h2>
-    <ul class="news">
-      <li><span class="date">Apr 2026</span><span><a href="https://arxiv.org/abs/2512.15725">Diffusion-based controller synthesis via Youla parameterization</a> accepted at <i>IFAC 2026</i>.</span></li>
-      <li><span class="date">Mar 2026</span><span>Our paper on <a href="https://arxiv.org/abs/2511.04286">efficient RLHF via Bayesian preference inference</a> is out in the <i>IFAC Journal of Systems and Control</i>.</span></li>
-      <li><span class="date">Jan 2026</span><span>Started as a Visiting Student Researcher at the Autonomous Systems Lab, Stanford University.</span></li>
-      <li><span class="date">Jan 2026</span><span><a href="https://arxiv.org/abs/2511.04751">Regularized GLISp for sensor-guided human-in-the-loop optimization</a> published in the <i>IFAC Journal of Systems and Control</i>.</span></li>
-      <li><span class="date">Jun 2025</span><span>Presented our work on <a href="https://proceedings.mlr.press/v283/cercola25a.html">LLM-based traffic incident management</a> at L4DC 2025, Ann Arbor.</span></li>
-    </ul>
-  </section>
+    <section>
+      <h2>News</h2>
+      <ul class="news">
+        <li><span class="date">Sep 2026</span><span>Submitted <a href="https://matcercola18.github.io/reasoning-as-a-distribution/">Reasoning as a Distribution</a> to <i>ICLR 2027</i> and <a href="https://matcercola18.github.io/pbdb/">Perceives but Doesn't Brake</a> to <i>ICRA 2027</i>.</span></li>
+        <li><span class="date">Jul 2026</span><span>New preprint on <a href="https://arxiv.org/abs/2607.04681">faithfulness of embodied reasoning in VLA models</a>, submitted to <i>RA-L</i>.</span></li>
+        <li><span class="date">Apr 2026</span><span><a href="https://arxiv.org/abs/2512.15725">Diffusion-based controller synthesis via Youla parameterization</a> accepted at <i>IFAC 2026</i>.</span></li>
+        <li><span class="date">Mar 2026</span><span>Our paper on <a href="https://arxiv.org/abs/2511.04286">efficient RLHF via Bayesian preference inference</a> is out in the <i>IFAC Journal of Systems and Control</i>.</span></li>
+        <li><span class="date">Jan 2026</span><span>Started as a Visiting Student Researcher at the Autonomous Systems Lab, Stanford University.</span></li>
+        <li><span class="date">Jan 2026</span><span><a href="https://arxiv.org/abs/2511.04751">Regularized GLISp for sensor-guided human-in-the-loop optimization</a> published in the <i>IFAC Journal of Systems and Control</i>.</span></li>
+        <li><span class="date">Jun 2025</span><span>Presented our work on <a href="https://proceedings.mlr.press/v283/cercola25a.html">LLM-based traffic incident management</a> at L4DC 2025, Ann Arbor.</span></li>
+      </ul>
+    </section>
 
-  <section id="publications">
-    <h2>Publications</h2>
-
-    <div class="pub">
-      <span class="badge">New · Featured</span>
-      <div class="title"><a href="https://arxiv.org/abs/2511.04286">Efficient Reinforcement Learning from Human Feedback via Bayesian Preference Inference</a></div>
-      <div class="authors"><b>Matteo Cercola</b>, Valeria Capretti, Simone Formentin</div>
-      <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
-      <div class="tags">
-        <a href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://www.sciencedirect.com/science/article/pii/S2468601826000386" target="_blank" rel="noopener">Journal</a>
+    <section>
+      <h2>Research</h2>
+      <div class="themes">
+        <div class="theme">
+          <h3>Reasoning in VLA models</h3>
+          <p>Does a model's reasoning drive its actions? Faithful chain-of-thought, plans as steerable
+          distributions, and the gap between perceiving a hazard and braking for it.</p>
+          <div class="refs"><a href="#pub-faithfulness">Faithfulness</a> · <a href="#pub-gpl">Plan latents</a> · <a href="#pub-pbdb">Binding gap</a></div>
+        </div>
+        <div class="theme">
+          <h3>Learning from human feedback</h3>
+          <p>Sample-efficient preference learning, from RLHF for language models to
+          human-in-the-loop calibration of vehicle controllers.</p>
+          <div class="refs"><a href="#pub-rlhf">Bayesian RLHF</a> · <a href="#pub-glisp">Regularized GLISp</a></div>
+        </div>
+        <div class="theme">
+          <h3>Generative models for control</h3>
+          <p>Diffusion models that design stabilizing controllers, and LLM agents with
+          optimization-backed decisions for highway operations.</p>
+          <div class="refs"><a href="#pub-youla">Youla diffusion</a> · <a href="#pub-l4dc">Highway LLM agent</a></div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="pub">
-      <div class="title"><a href="https://arxiv.org/abs/2511.04751">Regularized GLISp for Sensor-Guided Human-in-the-Loop Optimization</a></div>
-      <div class="authors"><b>Matteo Cercola</b>, Michele Lomuscio, Dario Piga, Simone Formentin</div>
-      <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
-      <div class="tags">
-        <a href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://www.sciencedirect.com/science/article/pii/S2468601826000088" target="_blank" rel="noopener">Journal</a>
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="pub" id="pub-faithfulness">
+        <a class="thumb fig" href="https://mjf-su.github.io/pinocchio/" target="_blank" rel="noopener">
+          <img src="assets/pubs/faithfulness.jpg" alt="Functional versus faithful reasoning in a driving scene" loading="lazy">
+        </a>
+        <div>
+          <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
+          <div class="title"><a href="https://arxiv.org/abs/2607.04681">Do Vision-Language-Action Models Mean What They Say? On the Role of Faithfulness in Embodied Reasoning</a></div>
+          <div class="authors">Matthew Foutter*, <b>Matteo Cercola</b>*, Lena Wild, Yunshan Wang, Michelle Li, Daniele Gammelli†, Marco Pavone†</div>
+          <div class="note">*Equal contribution · †Equal advising</div>
+          <div class="venue">Under review at <i>IEEE Robotics and Automation Letters (RA-L)</i>, 2026</div>
+          <div class="tags">
+            <a href="https://arxiv.org/abs/2607.04681" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://mjf-su.github.io/pinocchio/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="pub">
-      <div class="title"><a href="https://arxiv.org/abs/2512.15725">Generative Design of Stabilizing Controllers with Diffusion Models: The Youla Approach</a></div>
-      <div class="authors"><b>Matteo Cercola</b>, Donatello Materassi, Simone Formentin</div>
-      <div class="venue"><i>IFAC World Congress</i>, 2026</div>
-      <div class="tags">
-        <a href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">arXiv</a>
+      <div class="pub" id="pub-gpl">
+        <a class="thumb" href="https://matcercola18.github.io/reasoning-as-a-distribution/" target="_blank" rel="noopener">
+          <video src="assets/pubs/gpl.mp4" poster="assets/pubs/gpl.jpg" muted loop playsinline preload="none" aria-label="Robot arm following a sampled plan"></video>
+        </a>
+        <div>
+          <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
+          <div class="title"><a href="https://matcercola18.github.io/reasoning-as-a-distribution/">Reasoning as a Distribution: Generative Plan Latents for Vision–Language–Action Models</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Katie Z. Luo, Milan Ganai, John Alora, Simone Formentin, Marco Pavone</div>
+          <div class="venue">Under review at <i>ICLR 2027</i> · arXiv coming soon</div>
+          <div class="tags">
+            <a href="https://matcercola18.github.io/reasoning-as-a-distribution/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="pub">
-      <div class="title"><a href="https://proceedings.mlr.press/v283/cercola25a.html">Automating the Loop in Traffic Incident Management on Highway</a></div>
-      <div class="authors"><b>Matteo Cercola</b>, Nicola Gatti, Pedro Huertas Leyva, Benedetto Carambia, Simone Formentin</div>
-      <div class="venue"><i>7th Learning for Dynamics &amp; Control Conference (L4DC)</i>, Ann Arbor, 2025</div>
-      <div class="tags">
-        <a href="https://arxiv.org/abs/2503.12085" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">PMLR</a>
+      <div class="pub" id="pub-pbdb">
+        <a class="thumb" href="https://matcercola18.github.io/pbdb/" target="_blank" rel="noopener">
+          <video src="assets/pubs/pbdb.mp4" poster="assets/pubs/pbdb.jpg" muted loop playsinline preload="none" aria-label="Driving VLA trajectory approaching an obstacle"></video>
+        </a>
+        <div>
+          <div class="meta"><span class="topic">VLA reasoning</span><span class="badge">New</span></div>
+          <div class="title"><a href="https://matcercola18.github.io/pbdb/">Perceives but Doesn't Brake: A Perception–Action Binding Gap in Reasoning Driving VLAs</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Katie Luo, Simone Formentin, Marco Pavone</div>
+          <div class="venue">Under review at <i>ICRA 2027</i> · arXiv coming soon</div>
+          <div class="tags">
+            <a href="https://matcercola18.github.io/pbdb/" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="pub">
-      <div class="title">Method for Estimating Expert Test-Driver Subjective Handling Assessment</div>
-      <div class="authors"><b>Matteo Cercola</b> et al.</div>
-      <div class="venue"><i>Patent</i> — Maserati S.p.A. and Politecnico di Milano</div>
-    </div>
-  </section>
+      <div class="pub" id="pub-rlhf">
+        <a class="thumb fig" href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">
+          <img src="assets/pubs/rlhf.jpg" alt="Bayesian RLHF loop with acquisition function and Laplace-approximated reward model" loading="lazy">
+        </a>
+        <div>
+          <div class="meta"><span class="topic">Human feedback</span></div>
+          <div class="title"><a href="https://arxiv.org/abs/2511.04286">Efficient Reinforcement Learning from Human Feedback via Bayesian Preference Inference</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Valeria Capretti, Simone Formentin</div>
+          <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
+          <div class="tags">
+            <a href="https://arxiv.org/abs/2511.04286" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://www.sciencedirect.com/science/article/pii/S2468601826000386" target="_blank" rel="noopener">Journal</a>
+          </div>
+        </div>
+      </div>
 
-  <section>
-    <h2>Research Highlights</h2>
-    <div class="research-item">
-      <h3>Foundation models for autonomous driving — Stanford ASL</h3>
-      <p>Enhancing the reasoning of foundation models for decision-making and control in dynamic
-      environments; fine-tuning 4B-parameter vision-language-action models on a 32× H100 cluster
-      with PyTorch distributed training.</p>
-    </div>
-    <div class="research-item">
-      <h3>Agentic LLM decision support — MOVYON / Autostrade per l'Italia</h3>
-      <p>An agentic decision-support system (LangChain, RAG) with optimization-backed guarantees,
-      deployed for highway radio operators to accelerate incident response.</p>
-    </div>
-    <div class="research-item">
-      <h3>LiDAR segmentation — Indy Autonomous Challenge 2023</h3>
-      <p>Real-time point-cloud segmentation (PyTorch + ROS2) deployed on a full-scale autonomous
-      race vehicle, contributing to the team victory at the Monza Circuit.</p>
-    </div>
-  </section>
+      <div class="pub" id="pub-glisp">
+        <a class="thumb fig" href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">
+          <img src="assets/pubs/glisp.jpg" alt="Regularized GLISp loop with driver preferences and sensor outputs" loading="lazy">
+        </a>
+        <div>
+          <div class="meta"><span class="topic">Human feedback</span></div>
+          <div class="title"><a href="https://arxiv.org/abs/2511.04751">Regularized GLISp for Sensor-Guided Human-in-the-Loop Optimization</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Michele Lomuscio, Dario Piga, Simone Formentin</div>
+          <div class="venue"><i>IFAC Journal of Systems and Control</i>, 2026</div>
+          <div class="tags">
+            <a href="https://arxiv.org/abs/2511.04751" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://www.sciencedirect.com/science/article/pii/S2468601826000088" target="_blank" rel="noopener">Journal</a>
+          </div>
+        </div>
+      </div>
 
-  <footer>
-    <span>© 2026 Matteo Cercola</span>
-    <span>Milano · Stanford</span>
-  </footer>
+      <div class="pub" id="pub-youla">
+        <a class="thumb fig" href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">
+          <img src="assets/pubs/youla.jpg" alt="Distributions of sensitivity peak and settling time of generated controllers" loading="lazy">
+        </a>
+        <div>
+          <div class="meta"><span class="topic">Generative control</span></div>
+          <div class="title"><a href="https://arxiv.org/abs/2512.15725">Generative Design of Stabilizing Controllers with Diffusion Models: The Youla Approach</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Donatello Materassi, Simone Formentin</div>
+          <div class="venue"><i>IFAC World Congress</i>, 2026</div>
+          <div class="tags">
+            <a href="https://arxiv.org/abs/2512.15725" target="_blank" rel="noopener">arXiv</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub" id="pub-l4dc">
+        <a class="thumb fig" href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">
+          <img src="assets/pubs/l4dc.jpg" alt="LLM and optimization pipeline supporting highway operators" loading="lazy">
+        </a>
+        <div>
+          <div class="meta"><span class="topic">LLM agents</span></div>
+          <div class="title"><a href="https://proceedings.mlr.press/v283/cercola25a.html">Automating the Loop in Traffic Incident Management on Highway</a></div>
+          <div class="authors"><b>Matteo Cercola</b>, Nicola Gatti, Pedro Huertas Leyva, Benedetto Carambia, Simone Formentin</div>
+          <div class="venue"><i>7th Learning for Dynamics &amp; Control Conference (L4DC)</i>, Ann Arbor, 2025</div>
+          <div class="tags">
+            <a href="https://arxiv.org/abs/2503.12085" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://proceedings.mlr.press/v283/cercola25a.html" target="_blank" rel="noopener">PMLR</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div></div>
+        <div>
+          <div class="meta"><span class="topic">Vehicle dynamics</span></div>
+          <div class="title">Method for Estimating Expert Test-Driver Subjective Handling Assessment</div>
+          <div class="authors"><b>Matteo Cercola</b> et al.</div>
+          <div class="venue"><i>Patent</i> — Maserati S.p.A. and Politecnico di Milano</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="project">
+        <h3>Foundation models for autonomous driving — Stanford ASL</h3>
+        <p>Fine-tuning 4B-parameter vision-language-action models for driving on a 32× H100 cluster
+        with PyTorch distributed training.</p>
+      </div>
+      <div class="project">
+        <h3>Agentic LLM decision support — MOVYON / Autostrade per l'Italia</h3>
+        <p>An agentic decision-support system (LangChain, RAG) with optimization-backed guarantees,
+        deployed for highway radio operators to accelerate incident response.</p>
+      </div>
+      <div class="project">
+        <h3>LiDAR segmentation — Indy Autonomous Challenge 2023</h3>
+        <p>Real-time point-cloud segmentation (PyTorch + ROS2) deployed on a full-scale autonomous
+        race vehicle, contributing to the team victory at the Monza Circuit.</p>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Matteo Cercola</span>
+      <span>Milano · Stanford</span>
+    </footer>
+  </main>
 
 </div>
+<script>
+  // Theme toggle (dark by default, choice remembered per browser)
+  const root = document.documentElement;
+  const label = document.querySelector(".theme-toggle span");
+  const syncLabel = () => { label.textContent = root.dataset.theme === "dark" ? "Light" : "Dark"; };
+  syncLabel();
+  document.querySelector(".theme-toggle").addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    syncLabel();
+  });
+
+  // Paper previews play on hover
+  document.querySelectorAll(".pub video").forEach((v) => {
+    const row = v.closest(".pub");
+    row.addEventListener("mouseenter", () => v.play().catch(() => {}));
+    row.addEventListener("mouseleave", () => v.pause());
+  });
+</script>
 </body>
 </html>
